@@ -6,55 +6,51 @@ from sympy import isprime, mod_inverse
 from math import gcd
 
 
-ma_datte_nais = 24111999 #Ma datte de naissance !
+ma_datte_nais = 12091689
 
-#Trouver p blum le plus petit de la datte 
 
-#################EXO 1 RSA signature 
+#################RSA signature 
 
-nb_inf = ma_datte_nais # On crée une  nouvelle variable "inférieur" nb_inf a ma datte de naissance ! 
-while nb_inf > 2:  # la boucle se stop  avant d’atteindre un nombre inférieur à 2 car le nb blum est un NB P et aucun NB P est inférieur a 2.
-    if isprime(nb_inf) and nb_inf % 4 == 3:   #avec isprime verfier si le nb_inf est un NB premier  et si oui il calcule le MODULO est 3  c'est bon 
-        p = nb_inf #si le nb_inf est MOD 3 de la multiplication 4 aloes il sotck le nb dans la variable P
-        break  #fin de la boucle  while 
-    nb_inf -= 1 #et si nb_inf n est pas modulo 3 de la multpl de 4 alors il fait -1 et refait la boucle !!!
+nb_inf = ma_datte_nais
+while nb_inf > 2: 
+    if isprime(nb_inf) and nb_inf % 4 == 3:   
+        p = nb_inf 
+        break  e 
+    nb_inf -= 1 
+ 
 
-#Trouver q blum le plus  grand  de la datte 
-
-nb_sup = ma_datte_nais  # On crée une  nouvelle variable "inférieur"  nb_sup a ma datte de naissance ! 
-while True: #Cette boucle while vérifie la condition suivante 
-    if isprime(nb_sup) and nb_sup % 4 == 3:  #avec isprime verfier si le nb_sup est un NB premier  et si oui il calcule le MODULO est 3  c'est bon 
-        q = nb_sup #si le nb_sup est MOD 3 de la multiplication 4 aloes il sotck le nb dans la variable P
+nb_sup = ma_datte_nais  
+while True: 
+    if isprime(nb_sup) and nb_sup % 4 == 3:
+        q = nb_sup 
         break
-    nb_sup += 1 #et si nb_sup n est pas modulo 3 de la multpl de 4 alors il fait -1 et refait la boucle !!!
-
+    nb_sup += 1 
 print("Nombre premier de Blum inférieur:", p)
 print("Nombre premier de Blum supérieur:", q)
 
-n = p * q  # Calcul le n pour faire apres le totient Euler c 'est le module RSA / et pour rabbin 
-
+n = p * q
 print("Valeur de n (module RSA):", n) 
 
-TE_n = (p - 1) * (q - 1)  # Calcul du totient Euler et on la met dans la varaible TE_n
+TE_n = (p - 1) * (q - 1)
 print("Valeur de o(n) (Totient d'Euler):", TE_n) 
 
 
-e = 65537  #  665537C est la norme #cest la clé publique
+e = 65537  #  
 
-if gcd(e, TE_n) != 1: # On verifie que e et Tel_n sois premier entre eux qui veux dire que le PGCD doit etre du coup j'ai utiliser la fonction gcd qui calcule le pgcd de e et TEL_n
+if gcd(e, TE_n) != 1: 
     raise ValueError("PB les nb ne sont pas premier entre eux change la valeur de  e .")
     
 print("e est valider :", e)
 
-d = mod_inverse(e, TE_n)  # on calcule l inverse du MOD de e et Tel_n et mon met ca dans notre varaible 
-print("d est valider:", d) #cest la clé privé
+d = mod_inverse(e, TE_n)  
+print("d est valider:", d) 
 
 
 
 
 
 
-key_public = e * n # on crée la clé public
+key_public = e * n 
 print(key_public)
 
 
@@ -63,16 +59,14 @@ print(key_public)
 
 
 def texte_en_nombre(texte):
-#On convertit le text en en ASCII 
 
-    liste_ascii = [] #On crée une liste 
-    for a in texte: # On parcours le texte avec la variable a
-        nb_ascii = ord(a)  # avec option ord on converti la a (la lettre a en ASCII) et on stock ASCII dans la varaible nb_ascii
-        liste_ascii.append(str(nb_ascii))  # On a joute la variable nb_ascii dans la varaible dans la liste avec apend et j'ai indiquer que cest bien du str pour eviter toute erro 
+    liste_ascii = []
+    for a in texte:
+        nb_ascii = ord(a) 
+        liste_ascii.append(str(nb_ascii))  
     print(liste_ascii)
-    nombre_texte = ''.join(liste_ascii)  # dans la liste on crée une un text avec join et on la met dans notre nouvelle variable 
-    return int(nombre_texte)  # Conversion du txt  en entier avec le int 
-
+    nombre_texte = ''.join(liste_ascii)  
+    return int(nombre_texte)  
 
 
 def nombre_en_texte(nombre):
@@ -81,10 +75,9 @@ def nombre_en_texte(nombre):
     caracteres = []
     i = 0
     while i < len(nombre_str):
-        # Essayer de lire un code ASCII sur 3 chiffres (ex: 108, 101 pour 'l', 'e')
         if i + 2 < len(nombre_str) and int(nombre_str[i:i+3]) <= 122:
             code_ascii = int(nombre_str[i:i+3])  # Lire 3 chiffres
-            i += 3  # Avancer de 3 positions
+            i += 3  
         else:
             code_ascii = int(nombre_str[i:i+2])  # Lire 2 chiffres
             i += 2  # Avancer de 2 positions
@@ -226,6 +219,7 @@ for i in range(128):      # je veux  128 bits
 sequence_128_bits = ''.join(bits)  # j'ai  assemblé les bits en une chaîne 1 a 1 plus simple a comprendre 
 
 print("Séquence BBS (128 bits) =", sequence_128_bits)
+
 
 
 
